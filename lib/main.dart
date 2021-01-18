@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neostore/bloc/AddressBloc/addressBloc.dart';
@@ -43,18 +45,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future<dynamic> loggedStatus = SharedPrefernceData.getLoggedUserStatus();
-  bool status;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    loggedStatus.then((value) {
-      setState(() {
-        status = value;
-      });
-    });
-  }
+  // Future<dynamic> loggedStatus = SharedPrefernceData.getLoggedUserStatus();
+  // bool status;
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   loggedStatus.then((value) {
+  //     setState(() {
+  //       status = value;
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -62,20 +64,19 @@ class _MyAppState extends State<MyApp> {
       return OrientationBuilder(builder: (context, orientation) {
         SizerUtil().init(constraints, orientation);
         return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primaryColor: Color(0xffe91c1a),
-            //primaryColor: Colors.white,
-            accentColor: Colors.white,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          home:
-              //SplashScreen()
-              //LoginPage()
-              //LoginPage()
-              status == true ? HomePage() : LoginPage(),
-        );
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              primaryColor: Color(0xffe91c1a),
+              //primaryColor: Colors.white,
+              accentColor: Colors.white,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+            ),
+            home: SplashScreen()
+            //LoginPage()
+            //LoginPage()
+            //status == true ? HomePage() : LoginPage(),
+            );
       });
     });
   }
