@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:neostore/model/login_error_model.dart';
 
-abstract class LoginStates extends Equatable {}
+abstract class LoginStates {}
 
 class InitialloginState extends LoginStates {
   @override

@@ -20,6 +20,7 @@ class RegisterBloc extends Bloc<RegisterEvents, RegisterStates> {
         if (response.statusCode == 200) {
           var responseData =
               RegisterResponseModel.fromJson(json.decode(response.data));
+          print(responseData.data.accessToken);
 
           yield SuccessRegisterState(registerResponseModel: responseData);
         }

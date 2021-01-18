@@ -38,6 +38,7 @@ class _LoginPageState extends State<LoginPage> {
             if (state is LoginSuccessState) {
               SharedPrefernceData.storeToken(state.accessToken);
               SharedPrefernceData.storeUser(state.userName);
+              SharedPrefernceData.storeLoggedStatus();
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => HomePage()),
@@ -46,8 +47,11 @@ class _LoginPageState extends State<LoginPage> {
               });
             }
             if (state is LoginfailureState) {
-              _scaffoldKey.currentState.showSnackBar(
-                  SnackBar(content: Text(state.loginErrorModel.userMsg)));
+              _scaffoldKey.currentState.showSnackBar(SnackBar(
+                  content: Text(
+                state.loginErrorModel.userMsg,
+                style: snackBarErrortextStyle,
+              )));
             }
             // if (state is LoginRegisterState) {
             //   Navigator.push(context,
@@ -164,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
 
           BlocProvider.of<LoginBloc>(context)
               .add(LoginUserEvent(loginRequestModel: loginRequestModel));
-          SharedPrefernceData.storeLoggedStatus();
+          //SharedPrefernceData.storeLoggedStatus();
         }
       },
       child: Padding(

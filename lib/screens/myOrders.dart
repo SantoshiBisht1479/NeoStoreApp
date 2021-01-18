@@ -52,6 +52,19 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
             ),
           );
         }
+        if (state is EmptyOrderState) {
+          return Center(
+            child: Container(
+              child: Text(
+                state.emptyMessage,
+                style: TextStyle(
+                    //color: Theme.of(context).primaryColor,
+                    fontSize: 20,
+                    fontStyle: FontStyle.italic),
+              ),
+            ),
+          );
+        }
 
         if (state is LoadedOrderState) {
           return Container(

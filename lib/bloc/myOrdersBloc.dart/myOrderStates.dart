@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:neostore/model/login_error_model.dart';
 import 'package:neostore/model/myOder_model.dart';
 import 'package:neostore/model/myOrderDetail_model.dart';
 
@@ -35,4 +36,13 @@ class SuccessOrderDetailState extends MyOrderState {
 
   @override
   List<Object> get props => [myOrderDetailModel];
+}
+
+class EmptyOrderState extends MyOrderState {
+  //LoginErrorModel errorModel;
+  String emptyMessage;
+  EmptyOrderState({@required this.emptyMessage});
+
+  @override
+  List<Object> get props => [emptyMessage];
 }

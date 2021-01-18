@@ -1,11 +1,16 @@
+import 'dart:convert';
+import 'dart:io' as Io;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:neostore/bloc/editProfileBloc/editProfileBloc.dart';
 import 'package:neostore/bloc/editProfileBloc/editProfile_events.dart';
 import 'package:neostore/bloc/editProfileBloc/editProfile_states.dart';
 import 'package:neostore/model/update_req_detail_model.dart';
 import 'package:neostore/pallet.dart';
 import 'package:sizer/sizer.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProfilePage extends StatefulWidget {
   var accessToken;
@@ -25,6 +30,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  PickedFile imagepickedFile;
+  ImagePicker picker = ImagePicker();
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +53,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               _scaffoldKey.currentState.showSnackBar(SnackBar(
                   content: Text(
                 state.updateResponseUserDetailModel.message,
-                style: successtextStyle,
+                style: snackBarsuccesstextStyle,
               )));
               firstNameController.clear();
               lastNameController.clear();
@@ -100,13 +108,76 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Widget profileImage() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 1.5.h),
-      child: CircleAvatar(
-        maxRadius: 70,
-        backgroundImage: AssetImage('assets/images/user_male.png'),
+    return Stack(children: [
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 1.5.h),
+        child: CircleAvatar(
+          backgroundColor: Colors.white,
+          maxRadius: 70,
+          backgroundImage: imagepickedFile == null
+              ? AssetImage('assets/images/user_male.png')
+              : FileImage(Io.File(imagepickedFile.path)),
+        ),
+      ),
+      Positioned(
+          bottom: 30.0,
+          right: 30.0,
+          child: InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                  context: context, builder: (builder) => bottomSheet());
+            },
+            child: Icon(
+              Icons.camera_alt,
+              color: Colors.amber,
+              //color: Theme.of(context).primaryColor,
+              size: 25.0,
+            ),
+          ))
+    ]);
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      height: 100.0,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(
+        children: [
+          Text(
+            'Choose Profile Photo',
+            style: TextStyle(fontSize: 20.0),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 1.0.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FlatButton.icon(
+                    onPressed: () {
+                      takePhoto(ImageSource.camera);
+                    },
+                    icon: Icon(Icons.camera),
+                    label: Text('Camera')),
+                FlatButton.icon(
+                    onPressed: () {
+                      takePhoto(ImageSource.gallery);
+                    },
+                    icon: Icon(Icons.image),
+                    label: Text('Gallery'))
+              ],
+            ),
+          )
+        ],
       ),
     );
+  }
+
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await picker.getImage(source: source);
+    setState(() {
+      imagepickedFile = pickedFile;
+    });
   }
 
   Widget firstName() {
@@ -232,11 +303,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
       padding: EdgeInsets.symmetric(vertical: 0.5.h),
       child: TextFormField(
         controller: dobController,
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+          _showSelectedDate(context);
+        },
+        //initialValue: '$selectedDate',
         cursorColor: Colors.white,
         keyboardType: TextInputType.datetime,
         validator: (value) => value.isEmpty ? 'DOB is required' : null,
         style: textFieldStyle,
         decoration: InputDecoration(
+            suffixIcon: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.calendar_today,
+                color: Colors.white,
+              ),
+            ),
             focusedBorder: focusedBorder,
             errorBorder: errorBorder,
             focusedErrorBorder: focusedBorder,
@@ -255,47 +338,41 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget submitbutton() {
     return GestureDetector(
       onTap: () async {
+        // print(imagepickedFile.path);
+        // print(imagepickedFile.path.split('/'));
+        // var splittedData = imagepickedFile.path.split('/');
+        // print(splittedData.last);
+        // final bytes = Io.File(imagepickedFile.path).readAsBytesSync();
+        // String lastImage = base64Encode(bytes);
         if (_formKey.currentState.validate()) {
-          UpdateReqUserDetailModel updateReqUserDetailModel =
-              UpdateReqUserDetailModel(
-                  firstName: firstNameController.text,
-                  lastName: lastNameController.text,
-                  email: emailController.text,
-                  phoneNo: phoneController.text,
-                  dob: dobController.text,
-                  profilePic:
-                      "https://cutewallpaper.org/21/anime-boy-profile-picture/Anime-Boys-Drawception-Profile.jpg");
+          if (imagepickedFile != null) {
+            UpdateReqUserDetailModel updateReqUserDetailModel =
+                UpdateReqUserDetailModel(
+                    firstName: firstNameController.text,
+                    lastName: lastNameController.text,
+                    email: emailController.text,
+                    phoneNo: phoneController.text,
+                    dob: dobController.text,
+                    profilePic:
+                        'data:image/jpg;base64,${base64Encode(Io.File(imagepickedFile.path).readAsBytesSync())}'
 
-          BlocProvider.of<EditProfileBloc>(context).add(EditUserProfile(
-              accessToken: currentAccessToken,
-              updateReqUserDetailModel: updateReqUserDetailModel));
-          // try {
-          //   var response = await NetworkServices().updateDetailRequest(
-          //       currentAccessToken, updateReqUserDetailModel);
+                    //profilePic: 'data:image/jpg;base64,$lastImage'
+                    );
+            // "data:image/jpg;base64,${base64Encode(file.readAsBytesSync())}"
 
-          //   if (response.statusCode == 200) {
-          //     var responsedata = UpdateResponseUserDetailModel.fromJson(
-          //         json.decode(response.data));
-          //     print(responsedata.userMsg);
-          //     _scaffoldKey.currentState.showSnackBar(SnackBar(
-          //         content: Text(
-          //       responsedata.message,
-          //       style: successtextStyle,
-          //     )));
-          //     firstNameController.clear();
-          //     lastNameController.clear();
-          //     emailController.clear();
-          //     phoneController.clear();
-          //     dobController.clear();
-          //   }
-          // } on DioError catch (e) {
-          //   var errorData =
-          //       LoginErrorModel.fromJson(json.decode(e.response.data));
-          //   _scaffoldKey.currentState
-          //       .showSnackBar(SnackBar(content: Text(errorData.message)));
-          // }
+            BlocProvider.of<EditProfileBloc>(context).add(EditUserProfile(
+                accessToken: currentAccessToken,
+                updateReqUserDetailModel: updateReqUserDetailModel));
+          } else {
+            _scaffoldKey.currentState.showSnackBar(SnackBar(
+              content: Text(
+                'Select Image',
+                style: snackBarErrortextStyle,
+              ),
+            ));
+          }
+          return null;
         }
-        return null;
       },
       child: Padding(
         padding: EdgeInsets.only(top: 2.0.h),
@@ -313,5 +390,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
       ),
     );
+  }
+
+  Future<void> _showSelectedDate(BuildContext context) async {
+    final DateTime date = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1950, 1, 1),
+        lastDate: DateTime(2200, 1, 1));
+    if (date != null && date != selectedDate) {
+      setState(() {
+        selectedDate = date;
+        dobController.text = DateFormat('yyyy/MM/dd').format(selectedDate);
+      });
+    }
   }
 }

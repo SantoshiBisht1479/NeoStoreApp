@@ -27,7 +27,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   var currentIndex = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     accessToken = SharedPrefernceData.getToken();
     accessToken.then((value) {

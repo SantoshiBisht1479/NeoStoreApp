@@ -98,7 +98,10 @@ class _MyAccountPageState extends State<MyAccountPage> {
             }
             if (state is FailureAccountState) {
               return Center(
-                child: Text(state.errorMessage),
+                child: Text(
+                  state.errorMessage,
+                  style: errorTextStyle,
+                ),
               );
             }
           }),
@@ -110,12 +113,17 @@ class _MyAccountPageState extends State<MyAccountPage> {
   Widget profileImage(LoadedAccountState state) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 1.5.h),
-      child: CircleAvatar(
-        maxRadius: 70,
-        backgroundImage:
-            // getUserDetailModel.data.userData.profilePic != null
-            //     ? NetworkImage('${getUserDetailModel.data.userData.profilePic}')
-            AssetImage('assets/images/user_male.png'),
+      child: RotatedBox(
+        quarterTurns: 1,
+        child: CircleAvatar(
+          maxRadius: 70,
+          backgroundColor: Colors.white,
+          backgroundImage:
+              state.getUserDetailModel.data.userData.profilePic != null
+                  ? NetworkImage(
+                      '${state.getUserDetailModel.data.userData.profilePic}')
+                  : AssetImage('assets/images/user_male.png'),
+        ),
       ),
     );
   }
@@ -125,28 +133,10 @@ class _MyAccountPageState extends State<MyAccountPage> {
       padding: EdgeInsets.symmetric(vertical: 0.5.h),
       child: TextFormField(
         initialValue: '${state.getUserDetailModel.data.userData.firstName}',
-        //controller: firstNameController,
-        // validator: (value) {
-        //   if (value.isEmpty) {
-        //     return 'Enter Valid Email';
-        //   } else {
-        //     return null;
-        //   }
-        // },
         style: accountTextStyle,
-
         enabled: false,
-        //autofocus: true,
-        //cursorColor: Colors.white,
         decoration: InputDecoration(
             disabledBorder: textFieldBorder,
-            //focusedBorder: focusedBorder,
-            //errorBorder: errorBorder,
-            //focusedErrorBorder: focusedBorder,
-            //errorStyle: errorTextStyle,
-            //enabledBorder: textFieldBorder,
-            //hintText: 'First Name',
-            //hintStyle: textFieldhintStyle,
             prefixIcon: Image(
               image: AssetImage('assets/images/username_icon.png'),
             ),

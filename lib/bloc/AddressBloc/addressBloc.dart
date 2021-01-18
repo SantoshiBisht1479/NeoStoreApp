@@ -24,7 +24,7 @@ class AddressBloc extends Bloc<AddressBlocEvents, AddressBlocState> {
       }
     }
     if (event is AddNewAddressEvent) {
-      //yield LoadingAddressBlocState();
+      yield LoadingAddressBlocState();
 
       DatabaseHelper db = DatabaseHelper.instance;
       var response = await db.getAddress();

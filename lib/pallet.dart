@@ -31,12 +31,12 @@ final errorTextStyle = TextStyle(color: Colors.white, fontSize: 12.0.sp);
 final TextStyle accountTextStyle = TextStyle(
     color: Colors.white, fontSize: 16.0.sp, fontWeight: FontWeight.bold);
 
-final successtextStyle = TextStyle(
+final snackBarsuccesstextStyle = TextStyle(
   color: Colors.green,
   fontSize: 14.0.sp,
 );
 
-final errortextStyle = TextStyle(
+final snackBarErrortextStyle = TextStyle(
   color: Colors.red,
   fontSize: 14.0.sp,
 );

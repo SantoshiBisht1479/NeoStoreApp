@@ -40,15 +40,18 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               _scaffoldKey.currentState.showSnackBar(SnackBar(
                   content: Text(
                 state.changePasswordResModel.message,
-                style: successtextStyle,
+                style: snackBarsuccesstextStyle,
               )));
               currentPassController.clear();
               newPasswordController.clear();
               conFirmPasswordController.clear();
             }
             if (state is ResetpasswordFailureState) {
-              _scaffoldKey.currentState.showSnackBar(
-                  SnackBar(content: Text(state.loginErrorModel.message)));
+              _scaffoldKey.currentState.showSnackBar(SnackBar(
+                  content: Text(
+                state.loginErrorModel.message,
+                style: snackBarErrortextStyle,
+              )));
             }
           },
           child: Scaffold(

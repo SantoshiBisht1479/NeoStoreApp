@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neostore/bloc/AddressBloc/addressBloc.dart';
 import 'package:neostore/bloc/AddressBloc/addressBloc_events.dart';
 import 'package:neostore/bloc/AddressBloc/addressBloc_states.dart';
+import 'package:neostore/pallet.dart';
 import 'package:neostore/screens/addressDetail.dart';
 import 'package:neostore/shared_preference/shared_preference.dart';
 import 'package:sizer/sizer.dart';
@@ -173,8 +174,11 @@ class _AddressListPageState extends State<AddressListPage> {
                 listener: (context, state) {
                   if (state is SuccessOrderPlaceState) {
                     _scaffoldKey.currentState.showSnackBar(SnackBar(
-                        content:
-                            Text('${state.forgotPassResponsetModel.userMsg}')));
+                        backgroundColor: Theme.of(context).primaryColor,
+                        content: Text(
+                          '${state.forgotPassResponsetModel.userMsg}',
+                          style: snackBarsuccesstextStyle,
+                        )));
                   }
                   // if (state is FailureAddressBlocState) {
                   //   return Container(

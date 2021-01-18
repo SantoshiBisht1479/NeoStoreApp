@@ -110,16 +110,19 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 120,
-                width: 120,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 2),
-                    borderRadius: BorderRadius.circular(60),
-                    image: DecorationImage(
-                        image: data.profilePic == ''
-                            ? AssetImage('assets/images/profile.jpg')
-                            : NetworkImage(data.profilePic))),
+              RotatedBox(
+                quarterTurns: 1,
+                child: Container(
+                  height: 120,
+                  width: 120,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: BorderRadius.circular(60),
+                      image: DecorationImage(
+                          image: data.profilePic == null
+                              ? AssetImage('assets/images/profile.jpg')
+                              : NetworkImage(data.profilePic))),
+                ),
               ),
               Divider(
                 height: 10,
@@ -381,7 +384,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ImageSlider(),
                 //SizedBox(height: 2.0.h),
-                productGrid(context)
+                Expanded(child: productGrid(context))
               ],
             ),
           ),

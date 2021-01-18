@@ -4,6 +4,7 @@ import 'package:neostore/bloc/AddressBloc/addressBloc.dart';
 import 'package:neostore/bloc/AddressBloc/addressBloc_events.dart';
 import 'package:neostore/bloc/AddressBloc/addressBloc_states.dart';
 import 'package:neostore/model/addressModel.dart';
+import 'package:neostore/pallet.dart';
 import 'package:neostore/shared_preference/shared_preference.dart';
 import 'package:sizer/sizer.dart';
 
@@ -52,8 +53,12 @@ class _AddressDetailState extends State<AddressDetail> {
         child: BlocListener<AddressBloc, AddressBlocState>(
             listener: (context, state) {
               if (state is SuccessAddressBlocState) {
-                _scaffoldKey.currentState.showSnackBar(
-                    SnackBar(content: Text('Address Added Successfully')));
+                _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    backgroundColor: Colors.black,
+                    content: Text(
+                      'Address Added Successfully',
+                      style: snackBarsuccesstextStyle,
+                    )));
               }
             },
             child: Container(

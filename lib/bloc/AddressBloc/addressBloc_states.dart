@@ -35,7 +35,7 @@ class SuccessOrderPlaceState extends AddressBlocState {
   SuccessOrderPlaceState({@required this.forgotPassResponsetModel});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [forgotPassResponsetModel];
 }
 
 // class SuccessAddedBlocState extends AddressBlocState {

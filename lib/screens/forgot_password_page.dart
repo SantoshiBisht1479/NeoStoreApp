@@ -34,11 +34,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           listener: (context, state) {
             if (state is ForgotPasswordSuccessState) {
               _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  backgroundColor: Theme.of(context).accentColor,
-                  content: Text(
-                    '${state.forgotPassResponsetModel.userMsg} !',
-                    style: TextStyle(color: Colors.green, fontSize: 14.0.sp),
-                  )));
+                backgroundColor: Theme.of(context).accentColor,
+                content: Text('${state.forgotPassResponsetModel.userMsg} !',
+                    style: snackBarsuccesstextStyle),
+              ));
               emailController.clear();
             }
             if (state is ForgotPasswordFailureState) {
@@ -46,7 +45,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   backgroundColor: Theme.of(context).accentColor,
                   content: Text(
                     '${state.forgotPassResponsetModel.userMsg} !',
-                    style: TextStyle(color: Colors.green, fontSize: 14.0.sp),
+                    style: snackBarErrortextStyle,
                   )));
             }
           },
@@ -134,57 +133,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           BlocProvider.of<ForgotPasswordBloc>(context).add(
               ForgotUserPasswordEvent(
                   forgotPassRequestModel: forgotPassRequestModel));
-
-          // try {
-          //   var response = await NetworkServices()
-          //       .forgotPassrequest(forgotPassRequestModel);
-          //   if (response.statusCode == 200) {
-          //     print(response.data);
-          //     var responseData =
-          //         ForgotPassResponsetModel.fromJson(json.decode(response.data));
-
-          //     _scaffoldKey.currentState.showSnackBar(SnackBar(
-          //         backgroundColor: Theme.of(context).accentColor,
-          //         content: Text(
-          //           '${responseData.userMsg} !',
-          //           style: TextStyle(color: Colors.green, fontSize: 14.0.sp),
-          //         )));
-          //     emailController.clear();
-          //   }
-          // } on DioError catch (e) {
-          //   var responseData =
-          //       ForgotPassResponsetModel.fromJson(json.decode(e.response.data));
-
-          //   _scaffoldKey.currentState.showSnackBar(SnackBar(
-          //       backgroundColor: Theme.of(context).accentColor,
-          //       content: Text(
-          //         '${responseData.userMsg} !',
-          //         style: TextStyle(color: Colors.green, fontSize: 14.0.sp),
-          //       )));
-          // }
-
-          // // NetworkServices().getLoginResponse(loginRequestModel);
-
-          // try {
-          //   var response =
-          //       await NetworkServices().loginRequest(loginRequestModel);
-          //   if (response.statusCode == 200) {
-          //     print(response.data);
-          //     var dataresponse =
-          //         RegisterResponseModel.fromJson(json.decode(response.data));
-          //     print(dataresponse.data.firstName);
-          //     Navigator.pushAndRemoveUntil(
-          //         context,
-          //         MaterialPageRoute(builder: (context) => HomePage()),
-          //         (route) => false);
-          //   }
-          // } on DioError catch (e) {
-          //   print(e.response);
-          //   var errordata =
-          //       LoginErrorModel.fromJson(json.decode(e.response.data));
-          //   _scaffoldKey.currentState
-          //       .showSnackBar(SnackBar(content: Text(errordata.userMsg)));
-          // }
         }
       },
       child: Padding(

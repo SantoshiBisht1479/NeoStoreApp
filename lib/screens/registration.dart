@@ -53,8 +53,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
         }
         if (state is FailureRegisterState) {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
-              content:
-                  Text('${state.loginErrorModel.userMsg} already exist.')));
+              content: Text(
+            '${state.loginErrorModel.userMsg} already exist.',
+            style: snackBarErrortextStyle,
+          )));
         }
       },
       child: Scaffold(

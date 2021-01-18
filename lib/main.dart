@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neostore/bloc/AddressBloc/addressBloc.dart';
@@ -14,10 +12,7 @@ import 'package:neostore/bloc/productDetailBloc.dart/productDetailBloc.dart';
 import 'package:neostore/bloc/productListBloc/product_bloc.dart';
 import 'package:neostore/bloc/registerBloc/registerBloc.dart';
 import 'package:neostore/bloc/resetPasswordBloc/resetPassword_bloc.dart';
-import 'package:neostore/screens/home_page.dart';
-import 'package:neostore/screens/login_page.dart';
 import 'package:neostore/screens/splash_screen.dart';
-import 'package:neostore/shared_preference/shared_preference.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -45,19 +40,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // Future<dynamic> loggedStatus = SharedPrefernceData.getLoggedUserStatus();
-  // bool status;
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   loggedStatus.then((value) {
-  //     setState(() {
-  //       status = value;
-  //     });
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
@@ -73,7 +55,6 @@ class _MyAppState extends State<MyApp> {
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
             home: SplashScreen()
-            //LoginPage()
             //LoginPage()
             //status == true ? HomePage() : LoginPage(),
             );

@@ -13,12 +13,12 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   Future<dynamic> loggedStatus = SharedPrefernceData.getLoggedUserStatus();
   bool status;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loggedStatus.then((value) {
       setState(() {
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
     Timer(
-        Duration(milliseconds: 400),
+        Duration(seconds: 2),
         () => Navigator.push(
             context,
             MaterialPageRoute(
@@ -38,6 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
+        fit: StackFit.expand,
         children: [
           Container(
             decoration: BoxDecoration(
@@ -47,29 +48,57 @@ class _SplashScreenState extends State<SplashScreen> {
                     image: AssetImage('assets/images/NeoSOFT.png'),
                     fit: BoxFit.cover)),
           ),
-          Container(
-            width: double.infinity,
-            //color: Colors.amber,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  child: Text(
-                    'NeoSTORE',
-                    style: neoStoreTextStyle,
+          Column(
+            // mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 6.0.h),
+                    child: Container(
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 60.0,
+                        child: Icon(
+                          Icons.shopping_cart_rounded,
+                          color: Theme.of(context).primaryColor,
+                          size: 60,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                Container(
-                  height: 20.0.h,
-                  width: 10.0.w,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/splash_logo.jpg'))),
-                )
-              ],
-            ),
+                  Container(
+                    child: Text(
+                      'NeoSTORE',
+                      style: neoStoreTextStyle,
+                    ),
+                  ),
+                ],
+              )),
+              Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6.0.h),
+                        child: Container(
+                          child: Text(
+                            'Welcome To NeoStore',
+                            softWrap: true,
+                            textAlign: TextAlign.center,
+                            style: textFieldhintStyle,
+                          ),
+                        ),
+                      )
+                    ],
+                  ))
+            ],
           )
         ],
       ),
