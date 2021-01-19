@@ -38,11 +38,4 @@ class SuccessOrderPlaceState extends AddressBlocState {
   List<Object> get props => [forgotPassResponsetModel];
 }
 
-// class SuccessAddedBlocState extends AddressBlocState {
-//   String access_token;
-//   String address;
-//   SuccessAddedBlocState({@required this.access_token, @required this.address});
 
-//   @override
-//   List<Object> get props => [access_token, address];
-// }

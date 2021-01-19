@@ -1,36 +1,10 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:neostore/api/network_services.dart';
 import 'package:neostore/bloc/productDetailBloc.dart/productDetailBloc.dart';
 import 'package:neostore/bloc/productDetailBloc.dart/productDetail_events.dart';
-import 'package:neostore/model/login_error_model.dart';
 import 'package:neostore/model/product_detail_model.dart' as product;
-import 'package:neostore/model/rating_success_model.dart';
 import 'package:sizer/sizer.dart';
-
-// class ShowPopUpRating extends StatefulWidget {
-//   Data productDetailData;
-//   ShowPopUpRating({@required this.productDetailData})
-//       : assert(productDetailData != null);
-//   @override
-//   _ShowPopUpRatingState createState() => _ShowPopUpRatingState();
-// }
-
-// class _ShowPopUpRatingState extends State<ShowPopUpRating> {
-//   Data currentProductDetailData;
-//   @override
-//   Widget build(BuildContext context) {
-//     currentProductDetailData = widget.productDetailData;
-//     return showDialog(context: context,
-//     builder: (context){
-
-//     }
-//     );
-//   }
 
 popUpDialog(BuildContext context, product.Data productDetaildata) {
   double currentRating;
@@ -46,38 +20,40 @@ popUpDialog(BuildContext context, product.Data productDetaildata) {
             style: TextStyle(fontSize: 26),
           ),
         ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(2.0.h),
-              child: Container(
-                height: 30.0.h,
-                //width: 40.0.w,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                          '${productDetaildata.productImages[0].image}',
-                        ),
-                        fit: BoxFit.fill)),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(2.0.h),
+                child: Container(
+                  height: 30.0.h,
+                  //width: 40.0.w,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: NetworkImage(
+                            '${productDetaildata.productImages[0].image}',
+                          ),
+                          fit: BoxFit.fill)),
+                ),
               ),
-            ),
-            Container(
-              child: RatingBar(
-                onRatingUpdate: (value) {
-                  print(value);
-                  currentRating = value;
-                },
-                initialRating: productDetaildata.rating.toDouble(),
-                itemPadding: EdgeInsets.all(4.0),
-                itemCount: 5,
-                ratingWidget: RatingWidget(
-                    empty: Image.asset('assets/images/star_unchek.png'),
-                    full: Image.asset('assets/images/star_check.png'),
-                    half: null),
-              ),
-            )
-          ],
+              Container(
+                child: RatingBar(
+                  onRatingUpdate: (value) {
+                    print(value);
+                    currentRating = value;
+                  },
+                  initialRating: productDetaildata.rating.toDouble(),
+                  itemPadding: EdgeInsets.all(4.0),
+                  itemCount: 5,
+                  ratingWidget: RatingWidget(
+                      empty: Image.asset('assets/images/star_unchek.png'),
+                      full: Image.asset('assets/images/star_check.png'),
+                      half: null),
+                ),
+              )
+            ],
+          ),
         ),
         actions: [
           Padding(
@@ -92,24 +68,6 @@ popUpDialog(BuildContext context, product.Data productDetaildata) {
                         ratings: currentRating.toInt()));
 
                 Navigator.pop(context);
-
-                // try {
-                //   var response = await NetworkServices().getProductRatings(
-                //       '${productDetaildata.id}', currentRating.toInt());
-
-                //   print(currentRating.toInt());
-
-                //   if (response.statusCode == 200) {
-                //     var responseData =
-                //         RatingSuccessModel.fromJson(json.decode(response.data));
-                //     print(responseData.userMsg);
-                //     Navigator.pop(context);
-                //   }
-                // } on DioError catch (e) {
-                //   var errorresposeData =
-                //       LoginErrorModel.fromJson(json.decode(e.response.data));
-                //   print(errorresposeData.userMsg);
-                // }
               },
               child: Container(
                 height: 6.0.h,

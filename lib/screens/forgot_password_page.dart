@@ -5,6 +5,7 @@ import 'package:neostore/bloc/forgotPasswordBloc/forgotPassword_events.dart';
 import 'package:neostore/bloc/forgotPasswordBloc/forgotPassword_states.dart';
 import 'package:neostore/model/forgot_pass_request_model.dart';
 import 'package:neostore/pallet.dart';
+import 'package:neostore/screens/login_page.dart';
 import 'package:neostore/screens/registration.dart';
 import 'package:sizer/sizer.dart';
 
@@ -34,15 +35,27 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           listener: (context, state) {
             if (state is ForgotPasswordSuccessState) {
               _scaffoldKey.currentState.showSnackBar(SnackBar(
-                backgroundColor: Theme.of(context).accentColor,
-                content: Text('${state.forgotPassResponsetModel.userMsg} !',
-                    style: snackBarsuccesstextStyle),
+                backgroundColor: Colors.black,
+                content: Text(
+                  '${state.forgotPassResponsetModel.userMsg} !',
+                  style: snackBarsuccesstextStyle,
+                ),
+                action: SnackBarAction(
+                  label: 'Login',
+                  textColor: Theme.of(context).primaryColor,
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        (route) => false);
+                  },
+                ),
               ));
               emailController.clear();
             }
             if (state is ForgotPasswordFailureState) {
               _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  backgroundColor: Theme.of(context).accentColor,
+                  backgroundColor: Colors.black,
                   content: Text(
                     '${state.forgotPassResponsetModel.userMsg} !',
                     style: snackBarErrortextStyle,
@@ -146,10 +159,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           height: 60,
           child: Text(
             'SUBMIT',
-            style: TextStyle(
-                color: Color(0xffe91c1a),
-                fontSize: 22.0.sp,
-                fontFamily: 'GothamMedium'),
+            style: buttonTextStyle,
           ),
         ),
       ),

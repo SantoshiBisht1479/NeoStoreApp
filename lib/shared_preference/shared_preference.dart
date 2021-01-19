@@ -49,6 +49,13 @@ class SharedPrefernceData {
     return loggedUser;
   }
 
+  static removeData() async {
+    var pref = await preferences;
+    pref.remove('user');
+    pref.remove(tokenKey);
+    pref.remove(loggedIn_User_Detail);
+  }
+
   // static storeLoggedUserDetail(
   //     RegisterResponseModel registerResponseModel) async {
   //   var preference = await preferences;

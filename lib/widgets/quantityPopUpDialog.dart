@@ -1,19 +1,14 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:neostore/api/network_services.dart';
 import 'package:neostore/bloc/productDetailBloc.dart/productDetailBloc.dart';
 import 'package:neostore/bloc/productDetailBloc.dart/productDetail_events.dart';
-import 'package:neostore/model/addToCart_Success_model.dart';
-import 'package:neostore/model/login_error_model.dart';
 import 'package:neostore/model/product_detail_model.dart' as product;
 import 'package:sizer/sizer.dart';
 
 quantityPopUpDialog(
     BuildContext context, product.Data productDetaildata, var accessToken) {
   TextEditingController quantityController = TextEditingController();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   return showDialog(
     context: (context),
     builder: (context) {
@@ -51,14 +46,23 @@ quantityPopUpDialog(
                     padding: EdgeInsets.symmetric(
                         horizontal: 3.0.w, vertical: 1.0.h),
                     child: Container(
-                      child: TextField(
-                          controller: quantityController,
-                          cursorColor: Theme.of(context).primaryColor,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 2)),
-                          )),
+                      child: Form(
+                        key: _formKey,
+                        child: TextFormField(
+                            controller: quantityController,
+                            cursorColor: Theme.of(context).primaryColor,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Quantity is required';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 2)),
+                            )),
+                      ),
                     ),
                   )
                 ],
@@ -71,29 +75,14 @@ quantityPopUpDialog(
               child: InkWell(
                 onTap: () {
                   print('tapped');
-                  BlocProvider.of<ProductDetailBloc>(context).add(
-                      AddQuantityEvent(
-                          accessToken: accessToken,
-                          productId: productDetaildata.id,
-                          quantity: int.parse(quantityController.text)));
-                  Navigator.pop(context);
-                  // try {
-                  //   var response = await NetworkServices().addProductQuantity(
-                  //       accessToken,
-                  //       productDetaildata.id,
-                  //       int.parse(quantityController.text));
-
-                  //   if (response.statusCode == 200) {
-                  //     var responseData = AddToCartSuccessModel.fromJson(
-                  //         json.decode(response.data));
-                  //     print(responseData.userMsg);
-                  //     Navigator.pop(context);
-                  //   }
-                  // } on DioError catch (e) {
-                  //   var errorresposeData =
-                  //       LoginErrorModel.fromJson(json.decode(e.response.data));
-                  //   print(errorresposeData.userMsg);
-                  // }
+                  if (_formKey.currentState.validate()) {
+                    BlocProvider.of<ProductDetailBloc>(context).add(
+                        AddQuantityEvent(
+                            accessToken: accessToken,
+                            productId: productDetaildata.id,
+                            quantity: int.parse(quantityController.text)));
+                    Navigator.pop(context);
+                  }
                 },
                 child: Container(
                   height: 6.0.h,

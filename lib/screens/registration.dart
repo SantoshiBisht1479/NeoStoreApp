@@ -18,7 +18,8 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   NetworkServices networkServices;
-
+  bool hidePassword = true;
+  bool conformHidePass = true;
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -31,7 +32,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     networkServices = NetworkServices();
   }
@@ -41,9 +41,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return BlocListener<RegisterBloc, RegisterStates>(
       listener: (context, state) {
         if (state is SuccessRegisterState) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LoginPage()));
-
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: Colors.black,
+            content: Text(
+              state.registerResponseModel.userMsg,
+              style: snackBarsuccesstextStyle,
+            ),
+            action: SnackBarAction(
+              label: 'Login',
+              textColor: Theme.of(context).primaryColor,
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    (route) => false);
+              },
+            ),
+          ));
           firstNameController.clear();
           lastNameController.clear();
           emailController.clear();
@@ -53,10 +67,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
         }
         if (state is FailureRegisterState) {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
+              backgroundColor: Colors.black,
               content: Text(
-            '${state.loginErrorModel.userMsg} already exist.',
-            style: snackBarErrortextStyle,
-          )));
+                '${state.loginErrorModel.userMsg} .',
+                style: snackBarErrortextStyle,
+              )));
         }
       },
       child: Scaffold(
@@ -76,14 +91,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     colorFilter:
                         ColorFilter.mode(Colors.black38, BlendMode.darken))),
             child: Padding(
-              padding: EdgeInsets.only(right: 1.0.h, left: 1.0.h, top: 18.0.h),
+              padding: EdgeInsets.only(right: 1.0.h, left: 1.0.h, top: 10.0.h),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
                       child: Padding(
-                        padding: EdgeInsets.all(1.0.h),
+                        padding: EdgeInsets.only(top: 10.0.h, bottom: 2.0.h),
                         child: Text(
                           'NeoSTORE',
                           style: neoStoreTextStyle,
@@ -199,6 +214,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         controller: passwordController,
         style: textFieldStyle,
         cursorColor: Colors.white,
+        obscureText: hidePassword,
         validator: (value) => value.length < 8
             ? 'Password should be more than 8 characters'
             : null,
@@ -210,6 +226,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
             enabledBorder: textFieldBorder,
             hintText: 'Password',
             hintStyle: textFieldhintStyle,
+            suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  hidePassword = !hidePassword;
+                });
+              },
+              icon: Icon(
+                hidePassword ? Icons.visibility_off : Icons.visibility,
+                color: Colors.white,
+              ),
+            ),
             prefixIcon: Image(
               image: AssetImage('assets/images/password_icon.png'),
             ),
@@ -228,8 +255,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ? 'Password should be more than 8 characters'
             : null,
         style: textFieldStyle,
+        obscureText: conformHidePass,
         decoration: InputDecoration(
             focusedBorder: focusedBorder,
+            suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  conformHidePass = !conformHidePass;
+                });
+              },
+              icon: Icon(
+                conformHidePass ? Icons.visibility_off : Icons.visibility,
+                color: Colors.white,
+              ),
+            ),
             errorBorder: errorBorder,
             focusedErrorBorder: focusedBorder,
             errorStyle: errorTextStyle,
@@ -256,6 +295,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           Flexible(
             flex: 4,
             child: RadioListTile(
+                autofocus: true,
                 activeColor: Colors.white,
                 title: Text(
                   'Male',
@@ -273,6 +313,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           Flexible(
             flex: 5,
             child: RadioListTile(
+                autofocus: true,
                 activeColor: Colors.white,
                 title: Text(
                   'Female',
@@ -298,7 +339,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: TextFormField(
         controller: phoneController,
         cursorColor: Colors.white,
-        keyboardType: TextInputType.phone,
+        keyboardType: TextInputType.number,
         validator: (value) => value.isEmpty ? 'Enter phone number' : null,
         style: textFieldStyle,
         decoration: InputDecoration(
@@ -369,8 +410,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
       onTap: () async {
         if (_formKey.currentState.validate()) {
           if (passwordController.text != confirmPasswordController.text) {
-            _scaffoldKey.currentState.showSnackBar(
-                SnackBar(content: Text('Password doesnot match')));
+            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                backgroundColor: Colors.black,
+                content: Text(
+                  'Password doesnot match',
+                  style: snackBarErrortextStyle,
+                )));
           } else {
             RegisterRequestModel registerRequestModel = RegisterRequestModel(
                 firstName: firstNameController.text,
@@ -384,35 +429,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
             BlocProvider.of<RegisterBloc>(context).add(
                 RegisterUserEvent(registerRequestModel: registerRequestModel));
-
-            // try {
-            //   var result =
-            //       await NetworkServices().register(registerRequestModel);
-            //   if (result.statusCode == 200) {
-            //     print(result.data);
-            //     firstNameController.clear();
-            //     lastNameController.clear();
-            //     emailController.clear();
-            //     phoneController.clear();
-            //     passwordController.clear();
-            //     confirmPasswordController.clear();
-            //     // var dataresponse =
-            //     //     RegisterResponseModel.fromJson(json.decode(result.data));
-
-            //     Navigator.push(context,
-            //         MaterialPageRoute(builder: (context) => LoginPage()));
-            //   }
-            // } on DioError catch (e) {
-            //   print(e.response);
-            //   var errordata =
-            //       RegisterErrorModel.fromJson(json.decode(e.response.data));
-            //   print(errordata.message);
-            //   _scaffoldKey.currentState.showSnackBar(SnackBar(
-            //       content: Text('${errordata.data.email} already exist.')));
-            // }
-
-            // print(result.toString());
-
           }
         }
       },

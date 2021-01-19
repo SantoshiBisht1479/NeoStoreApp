@@ -38,20 +38,22 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           listener: (context, state) {
             if (state is ResetPasswordSuccessState) {
               _scaffoldKey.currentState.showSnackBar(SnackBar(
+                  backgroundColor: Colors.black,
                   content: Text(
-                state.changePasswordResModel.message,
-                style: snackBarsuccesstextStyle,
-              )));
+                    state.changePasswordResModel.message,
+                    style: snackBarsuccesstextStyle,
+                  )));
               currentPassController.clear();
               newPasswordController.clear();
               conFirmPasswordController.clear();
             }
             if (state is ResetpasswordFailureState) {
               _scaffoldKey.currentState.showSnackBar(SnackBar(
+                  backgroundColor: Colors.black,
                   content: Text(
-                state.loginErrorModel.message,
-                style: snackBarErrortextStyle,
-              )));
+                    state.loginErrorModel.message,
+                    style: snackBarErrortextStyle,
+                  )));
             }
           },
           child: Scaffold(
@@ -210,29 +212,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             BlocProvider.of<ResetPasswordBloc>(context).add(ResetPassword(
                 accessToken: currentAccessToken,
                 changePasswordReqModel: changePasswordReqModel));
-
-            // try {
-            //   var response = await NetworkServices().changePassRequest(
-            //       currentAccessToken, changePasswordReqModel);
-
-            //   if (response.statusCode == 200) {
-            //     var responsedata =
-            //         LoginErrorModel.fromJson(json.decode(response.data));
-            //     _scaffoldKey.currentState.showSnackBar(SnackBar(
-            //         content: Text(
-            //       responsedata.message,
-            //       style: successtextStyle,
-            //     )));
-            //     currentPassController.clear();
-            //     newPasswordController.clear();
-            //     conFirmPasswordController.clear();
-            //   }
-            // } on DioError catch (e) {
-            //   var errorData =
-            //       LoginErrorModel.fromJson(json.decode(e.response.data));
-            //   _scaffoldKey.currentState
-            //       .showSnackBar(SnackBar(content: Text(errorData.message)));
-            // }
           }
         }
       },

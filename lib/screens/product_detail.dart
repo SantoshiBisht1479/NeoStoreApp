@@ -11,7 +11,6 @@ import 'package:sizer/sizer.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   var product_id;
-  //ProductDetailModel productDetailModel;
   var category;
   ProductDetailScreen({@required this.product_id, @required this.category});
   @override
@@ -21,7 +20,6 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Future<dynamic> accessToken;
   var currentaccessToken;
-  //ProductDetailModel _productDetailModel;
   String currentProductId;
   var currentCategory;
   var currentIndex = 0;
@@ -257,12 +255,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 flex: 3,
                                 child: InkWell(
                                     onTap: () {
-                                      //ShowPopUpRating(productDetailData: _productDetailModel.data,);
-
                                       popUpDialog(context, data);
-
-                                      // popUpDialog(
-                                      //     context, _productDetailModel.data);
                                     },
                                     child: Container(
                                       alignment: Alignment.center,

@@ -5,6 +5,7 @@ import 'package:neostore/bloc/HomeBloc/home_bloc_states.dart';
 import 'package:neostore/bloc/productListBloc/productList_events.dart';
 import 'package:neostore/bloc/productListBloc/product_bloc.dart';
 import 'package:neostore/pallet.dart';
+import 'package:neostore/screens/login_page.dart';
 import 'package:neostore/screens/myAccount.dart';
 import 'package:neostore/screens/myCart.dart';
 import 'package:neostore/screens/myOrders.dart';
@@ -18,18 +19,12 @@ import 'package:flutter/material.dart';
 import 'package:neostore/model/get_user_detail_model.dart';
 
 class HomePage extends StatefulWidget {
-  // String access_Token;
-  // HomePage({@required this.access_Token}) : assert(access_Token != null);
-
-  // GetUserDetailModel userDetailModel;
-  // HomePage({this.userDetailModel}) : assert(userDetailModel != null);
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   Future<dynamic> currentAccessToken = SharedPrefernceData.getToken();
-  // GetUserDetailModel getUserDetailModel;
   bool iscollapse = true;
   double screenWidth, screenHeight;
   var accessToken;
@@ -43,23 +38,11 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         accessToken = value;
       });
-
-      // BlocProvider.of<HomeBloc>(context)
-      //     .add(HomeBlocData(accessToken: value));
     });
-    // BlocProvider.of<HomeBloc>(context)
-    //     .add(HomeBlocData(accessToken: currentAccessToken));
-    // currentAccessToken.then((value) {
-    //   setState(() {
-    //     BlocProvider.of<HomeBloc>(context)
-    //         .add(HomeBlocData(accessToken: value));
-    //   });
-    // });
   }
 
   @override
   Widget build(BuildContext context) {
-    // getUserDetailModel = widget.userDetailModel;
     setState(() {
       BlocProvider.of<HomeBloc>(context)
           .add(HomeBlocData(accessToken: accessToken));
@@ -95,11 +78,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget drawerMenu(
       BuildContext context, GetUserDetailModel getUserDetailModel) {
-    //return BlocBuilder<HomeBloc, HomeBlocStates>(builder: (context, state) {
-    // if (state is InitialHomeBloc) {
-    //   return CircularProgressIndicator();
-    // }
-    // if (state is HomeBlocSuccessState) {
     var data = getUserDetailModel.data.userData;
     return Container(
       padding: EdgeInsets.only(top: 7.0.h, left: 1.5.h, right: 10.0.h),
@@ -110,20 +88,30 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              RotatedBox(
-                quarterTurns: 1,
-                child: Container(
+              Container(
                   height: 120,
                   width: 120,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 2),
-                      borderRadius: BorderRadius.circular(60),
-                      image: DecorationImage(
-                          image: data.profilePic == null
-                              ? AssetImage('assets/images/profile.jpg')
-                              : NetworkImage(data.profilePic))),
-                ),
-              ),
+                  child: data.profilePic == null
+                      ? Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white, width: 2),
+                              borderRadius: BorderRadius.circular(60),
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image:
+                                      AssetImage('assets/images/profile.jpg'))))
+                      : RotatedBox(
+                          quarterTurns: 1,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.white, width: 2),
+                                borderRadius: BorderRadius.circular(60),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(data.profilePic))),
+                          ),
+                        )),
               Divider(
                 height: 10,
               ),
@@ -328,6 +316,51 @@ class _HomePageState extends State<HomePage> {
                 Card(
                     color: Colors.black,
                     child: ListTile(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: Text(
+                                  'Are you sure you want to logout ?',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                actions: [
+                                  Padding(
+                                    padding: EdgeInsets.all(2.0.h),
+                                    child: InkWell(
+                                      child: Text(
+                                        'No',
+                                        style: TextStyle(
+                                            fontSize: 16, color: Colors.green),
+                                      ),
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(2.0.h),
+                                    child: InkWell(
+                                      child: Text('Yes',
+                                          style: TextStyle(
+                                              fontSize: 16, color: Colors.red)),
+                                      onTap: () {
+                                        SharedPrefernceData.removeData();
+                                        Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginPage()),
+                                            (route) => false);
+                                      },
+                                    ),
+                                  )
+                                ],
+                              );
+                            });
+                        //SharedPrefernceData.removeData();
+                      },
                       leading: Image.asset(
                         'assets/images/logout_icon.png',
                         height: 30.0,
@@ -353,7 +386,7 @@ class _HomePageState extends State<HomePage> {
           elevation: 8,
           color: Colors.white,
           child: Container(
-            padding: EdgeInsets.only(left: 1, top: 60, right: 1),
+            padding: EdgeInsets.only(left: 1, top: 30, right: 1),
             child: Column(
               children: [
                 Container(

@@ -70,157 +70,164 @@ class _AddressListPageState extends State<AddressListPage> {
           )
         ],
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 2.0.h, vertical: 3.0.h),
-                child: Text(
-                  'Shipping Address',
-                  style: TextStyle(fontSize: 20),
-                ),
+      body: BlocListener<AddressBloc, AddressBlocState>(
+        listener: (context, state) {
+          if (state is SuccessOrderPlaceState) {
+            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                backgroundColor: Colors.black,
+                content: Text(
+                  '${state.forgotPassResponsetModel.userMsg}',
+                  style: snackBarsuccesstextStyle,
+                )));
+          }
+        },
+        child: BlocBuilder<AddressBloc, AddressBlocState>(
+            builder: (context, state) {
+          if (state is InitialAddressBlocState) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Theme.of(context).primaryColor,
               ),
-              BlocBuilder<AddressBloc, AddressBlocState>(
-                  builder: (context, state) {
-                if (state is InitialAddressBlocState) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: Theme.of(context).primaryColor,
-                    ),
-                  );
-                }
+            );
+          }
 
-                if (state is LoadingAddressBlocState) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: Theme.of(context).primaryColor,
-                    ),
-                  );
-                }
-                if (state is SuccessOrderPlaceState) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: Theme.of(context).primaryColor,
-                    ),
-                  );
-                }
-                if (state is SuccessAddressBlocState) {
-                  if (state.addressModel.isEmpty) {
-                    return Container(
-                      child: Text('No shipping Address Added'),
-                    );
-                  } else {
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: state.addressModel.length,
-                        itemBuilder: (context, index) {
-                          //print(state.addressModel[index].id);
-                          //radioValue = state.addressModel[index].id;
-                          return Card(
-                            child: ListTile(
-                              leading: Radio(
-                                activeColor: Theme.of(context).primaryColor,
-                                groupValue: radioValue,
-                                value: state.addressModel[index].id,
-                                //toggleable: true,
-                                onChanged: (int value) {
-                                  setState(() {
-                                    // print(radioValue);
-                                    currentAddress =
-                                        state.addressModel[index].address;
-                                    radioValue = value;
-                                    // if (radioValue == value) {
-                                    //   print(true);
-                                    // }
-                                  });
-                                },
-                              ),
-                              title: Text(
-                                currentUser,
-                                style: TextStyle(fontSize: 24),
-                              ),
-                              subtitle: Text(
-                                '${state.addressModel[index].address}',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 14),
-                              ),
-                              trailing: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    BlocProvider.of<AddressBloc>(context).add(
-                                        DeleteAddressEvent(
-                                            id: state.addressModel[index].id));
-                                  });
-                                },
-                                child: Icon(Icons.clear),
-                              ),
-                            ),
-                          );
-                        });
-                  }
-                }
-
-                if (state is FailureAddressBlocState) {
-                  return Container(
-                    child: Text(state.errorMessage),
-                  );
-                }
-              }),
-              BlocListener<AddressBloc, AddressBlocState>(
-                listener: (context, state) {
-                  if (state is SuccessOrderPlaceState) {
-                    _scaffoldKey.currentState.showSnackBar(SnackBar(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        content: Text(
-                          '${state.forgotPassResponsetModel.userMsg}',
-                          style: snackBarsuccesstextStyle,
-                        )));
-                  }
-                  // if (state is FailureAddressBlocState) {
-                  //   return Container(
-                  //     child: Text('${state.errorMessage}'),
-                  //   );
-                  // }
-                },
-                child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      BlocProvider.of<AddressBloc>(context).add(PlaceOrderEvent(
-                          accessToken: currentAccessToken,
-                          address: currentAddress));
-                    });
-
-                    //Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 4.0.w, vertical: 2.0.h),
-                    child: Container(
-                      alignment: Alignment.center,
-                      //padding: EdgeInsets.only(top: 2.0.h),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Theme.of(context).primaryColor),
-                      width: double.infinity,
-                      height: 60,
-                      child: Text(
-                        'PLACE ORDER ',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22.0.sp,
-                            fontFamily: 'GothamMedium'),
+          if (state is LoadingAddressBlocState) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
+            );
+          }
+          // if (state is SuccessOrderPlaceState) {
+          //   return Center(
+          //     child: CircularProgressIndicator(
+          //       backgroundColor: Theme.of(context).primaryColor,
+          //     ),
+          //   );
+          //}
+          if (state is SuccessAddressBlocState) {
+            if (state.addressModel.isEmpty) {
+              return Center(
+                child: Container(
+                  child: Text('No shipping Address Added'),
+                ),
+              );
+            } else {
+              return Container(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 2.0.h, vertical: 3.0.h),
+                        child: Text(
+                          'Shipping Address',
+                          style: TextStyle(fontSize: 20),
+                        ),
                       ),
-                    ),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: state.addressModel.length,
+                          itemBuilder: (context, index) {
+                            //print(state.addressModel[index].id);
+                            //radioValue = state.addressModel[index].id;
+                            return Card(
+                              child: ListTile(
+                                leading: Radio(
+                                  activeColor: Theme.of(context).primaryColor,
+                                  groupValue: radioValue,
+                                  value: state.addressModel[index].id,
+                                  //toggleable: true,
+                                  onChanged: (int value) {
+                                    setState(() {
+                                      // print(radioValue);
+                                      currentAddress =
+                                          state.addressModel[index].address;
+                                      radioValue = value;
+                                      // if (radioValue == value) {
+                                      //   print(true);
+                                      // }
+                                    });
+                                  },
+                                ),
+                                title: Text(
+                                  currentUser,
+                                  style: TextStyle(fontSize: 24),
+                                ),
+                                subtitle: Text(
+                                  '${state.addressModel[index].address}',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 14),
+                                ),
+                                trailing: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      BlocProvider.of<AddressBloc>(context).add(
+                                          DeleteAddressEvent(
+                                              id: state
+                                                  .addressModel[index].id));
+                                    });
+                                  },
+                                  child: Icon(Icons.clear),
+                                ),
+                              ),
+                            );
+                          }),
+                      InkWell(
+                        onTap: () {
+                          if (currentAddress != null) {
+                            setState(() {
+                              BlocProvider.of<AddressBloc>(context).add(
+                                  PlaceOrderEvent(
+                                      accessToken: currentAccessToken,
+                                      address: currentAddress));
+                            });
+                          } else {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                backgroundColor: Colors.black,
+                                content: Text(
+                                  'No Address Selected',
+                                  style: snackBarErrortextStyle,
+                                )));
+                          }
+
+                          //Navigator.pop(context);
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 4.0.w, vertical: 2.0.h),
+                          child: Container(
+                            alignment: Alignment.center,
+                            //padding: EdgeInsets.only(top: 2.0.h),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Theme.of(context).primaryColor),
+                            width: double.infinity,
+                            height: 60,
+                            child: Text(
+                              'PLACE ORDER ',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22.0.sp,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              )
-            ],
-          ),
-        ),
+              );
+            }
+          }
+
+          if (state is FailureAddressBlocState) {
+            return Container(
+              child: Text(state.errorMessage),
+            );
+          }
+        }),
       ),
     );
   }

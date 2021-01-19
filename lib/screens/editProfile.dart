@@ -51,10 +51,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
           listener: (context, state) {
             if (state is EditProfileSuccessState) {
               _scaffoldKey.currentState.showSnackBar(SnackBar(
+                  backgroundColor: Colors.black,
                   content: Text(
-                state.updateResponseUserDetailModel.message,
-                style: snackBarsuccesstextStyle,
-              )));
+                    state.updateResponseUserDetailModel.message,
+                    style: snackBarsuccesstextStyle,
+                  )));
               firstNameController.clear();
               lastNameController.clear();
               emailController.clear();
@@ -62,8 +63,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
               dobController.clear();
             }
             if (state is EditProfileFailureState) {
-              _scaffoldKey.currentState.showSnackBar(
-                  SnackBar(content: Text(state.failureErrorModel.message)));
+              _scaffoldKey.currentState.showSnackBar(SnackBar(
+                  backgroundColor: Colors.black,
+                  content: Text(
+                    state.failureErrorModel.message,
+                    style: snackBarErrortextStyle,
+                  )));
             }
           },
           child: Scaffold(

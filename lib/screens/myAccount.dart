@@ -12,9 +12,6 @@ import 'package:sizer/sizer.dart';
 class MyAccountPage extends StatefulWidget {
   String accessToken;
   MyAccountPage({@required this.accessToken});
-  // GetUserDetailModel userDetailModel;
-  // MyAccountPage({@required this.userDetailModel})
-  // : assert(userDetailModel != null);
   @override
   _MyAccountPageState createState() => _MyAccountPageState();
 }
@@ -23,9 +20,6 @@ class _MyAccountPageState extends State<MyAccountPage> {
   GetUserDetailModel getUserDetailModel;
   @override
   Widget build(BuildContext context) {
-    // setState(() {
-    //   getUserDetailModel = widget.userDetailModel;
-    // });
     setState(() {
       print('accessToken: ${widget.accessToken}');
       BlocProvider.of<MyAccountBloc>(context)
@@ -113,18 +107,29 @@ class _MyAccountPageState extends State<MyAccountPage> {
   Widget profileImage(LoadedAccountState state) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 1.5.h),
-      child: RotatedBox(
-        quarterTurns: 1,
-        child: CircleAvatar(
+      child: CircleAvatar(
           maxRadius: 70,
           backgroundColor: Colors.white,
-          backgroundImage:
-              state.getUserDetailModel.data.userData.profilePic != null
-                  ? NetworkImage(
-                      '${state.getUserDetailModel.data.userData.profilePic}')
-                  : AssetImage('assets/images/user_male.png'),
-        ),
-      ),
+          child: state.getUserDetailModel.data.userData.profilePic != null
+              ? RotatedBox(
+                  quarterTurns: 1,
+                  child: CircleAvatar(
+                    maxRadius: 70,
+                    backgroundColor: Colors.white,
+                    backgroundImage: NetworkImage(
+                        '${state.getUserDetailModel.data.userData.profilePic}'),
+                  ),
+                )
+              : CircleAvatar(
+                  maxRadius: 70,
+                  backgroundColor: Colors.white,
+                  backgroundImage: AssetImage('assets/images/profile.jpg'),
+                )),
+      // backgroundImage:
+      //     state.getUserDetailModel.data.userData.profilePic != null
+      //         ? NetworkImage(
+      //             '${state.getUserDetailModel.data.userData.profilePic}')
+      //         : AssetImage('assets/images/user_male.png'),
     );
   }
 
@@ -267,10 +272,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
           height: 60,
           child: Text(
             'RESET PASSWORD',
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 20.0.sp,
-                fontFamily: 'GothamMedium'),
+            style: buttonTextStyle,
           ),
         ),
       ),

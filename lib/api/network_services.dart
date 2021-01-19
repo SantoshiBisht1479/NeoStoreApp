@@ -96,23 +96,6 @@ class NetworkServices {
     return response;
   }
 
-  // Future<ProductCategoryModel> getProductList(
-  //     String product_category_id) async {
-  //   Response response = await dio.get(
-  //       '$baseProductUrl/getList?product_category_id=$product_category_id');
-  //   if (response.statusCode == 200) {
-  //     print(response.data);
-  //     try {
-  //       var responseData = json.decode(response.data);
-  //       return ProductCategoryModel.fromJson(responseData);
-  //     } on DioError catch (e) {
-  //       print('error');
-  //       print(e.response);
-  //       //return LoginRequestModel.fromJson(json.decode(response.data));
-  //     }
-  //   }
-  // }
-
   Future<Response> getProductDetails(String product_id) async {
     Response response =
         await dio.get('$baseProductUrl/getDetail?product_id=$product_id');

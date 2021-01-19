@@ -19,13 +19,17 @@ final OutlineInputBorder errorBorder =
     OutlineInputBorder(borderSide: BorderSide(color: Colors.white, width: 1));
 
 final TextStyle textFieldhintStyle = TextStyle(
-    color: Colors.white, fontSize: 16.0.sp, fontFamily: 'GothamMedium');
+  color: Colors.white,
+  fontSize: 16.0.sp,
+);
 
 final TextStyle textRadioStyle = TextStyle(
-    color: Colors.white, fontSize: 14.0.sp, fontFamily: 'GothamMedium');
+  color: Colors.white,
+  fontSize: 14.0.sp,
+);
 
 final TextStyle buttonTextStyle = TextStyle(
-    color: Color(0xffe91c1a), fontSize: 22.0.sp, fontFamily: 'GothamMedium');
+    color: Color(0xffe91c1a), fontSize: 22.0.sp, fontWeight: FontWeight.bold);
 
 final errorTextStyle = TextStyle(color: Colors.white, fontSize: 12.0.sp);
 final TextStyle accountTextStyle = TextStyle(

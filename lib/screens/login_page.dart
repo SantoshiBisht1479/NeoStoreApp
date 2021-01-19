@@ -17,6 +17,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool hidePassword = true;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -48,10 +49,11 @@ class _LoginPageState extends State<LoginPage> {
             }
             if (state is LoginfailureState) {
               _scaffoldKey.currentState.showSnackBar(SnackBar(
+                  backgroundColor: Colors.black,
                   content: Text(
-                state.loginErrorModel.userMsg,
-                style: snackBarErrortextStyle,
-              )));
+                    state.loginErrorModel.userMsg,
+                    style: snackBarErrortextStyle,
+                  )));
             }
             // if (state is LoginRegisterState) {
             //   Navigator.push(context,
@@ -141,11 +143,23 @@ class _LoginPageState extends State<LoginPage> {
           }
         },
         style: textFieldStyle,
+        obscureText: hidePassword,
         cursorColor: Colors.white,
         decoration: InputDecoration(
             focusedBorder: focusedBorder,
             errorBorder: errorBorder,
             focusedErrorBorder: focusedBorder,
+            suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  hidePassword = !hidePassword;
+                });
+              },
+              icon: Icon(
+                hidePassword ? Icons.visibility_off : Icons.visibility,
+                color: Colors.white,
+              ),
+            ),
             errorStyle: errorTextStyle,
             enabledBorder: textFieldBorder,
             hintText: 'Password',

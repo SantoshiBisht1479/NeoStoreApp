@@ -18,16 +18,6 @@ class ProductList extends StatefulWidget {
 class _ProductListState extends State<ProductList> {
   var currentTitle;
   var currentProductId;
-  //Future<ProductCategoryModel> productCategoryModel;
-  @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   print(currentProductId);
-  //   BlocProvider.of<ProductListBloc>(context)
-  //       .add(ShowProductList(productId: currentProductId));
-  // }
-
   @override
   Widget build(BuildContext context) {
     currentTitle = widget.title;
@@ -37,9 +27,6 @@ class _ProductListState extends State<ProductList> {
       BlocProvider.of<ProductListBloc>(context)
           .add(ShowProductList(productId: currentProductId));
     });
-
-    //productCategoryModel = NetworkServices().getProductList(currentProductId);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(currentTitle),
@@ -89,7 +76,6 @@ class _ProductListState extends State<ProductList> {
                               height: 13.0.h,
                               width: 13.0.h,
                               decoration: BoxDecoration(
-                                  //color: Colors.amber,
                                   image: DecorationImage(
                                       image: NetworkImage(
                                           data[index].productImages),

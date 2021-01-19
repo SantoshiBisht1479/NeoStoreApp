@@ -191,6 +191,7 @@ class _AddressDetailState extends State<AddressDetail> {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 1.0.h),
                       child: TextFormField(
+                        keyboardType: TextInputType.number,
                         validator: (value) {
                           if (zipController.text.isEmpty) {
                             return 'Enter ZipCode';
@@ -310,7 +311,7 @@ class _AddressDetailState extends State<AddressDetail> {
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 22.0.sp,
-                fontFamily: 'GothamMedium'),
+                fontWeight: FontWeight.bold),
           ),
         ),
       ),

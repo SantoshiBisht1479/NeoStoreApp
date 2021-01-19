@@ -29,7 +29,7 @@ class FailureCartBlocState extends CartBlocStates {
   FailureCartBlocState({@required this.errorMessage})
       : assert(errorMessage != null);
   @override
-  // TODO: implement props
+
   List<Object> get props => [errorMessage];
 }
 

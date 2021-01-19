@@ -50,14 +50,10 @@ class _MyAppState extends State<MyApp> {
             title: 'Flutter Demo',
             theme: ThemeData(
               primaryColor: Color(0xffe91c1a),
-              //primaryColor: Colors.white,
               accentColor: Colors.white,
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
-            home: SplashScreen()
-            //LoginPage()
-            //status == true ? HomePage() : LoginPage(),
-            );
+            home: SplashScreen());
       });
     });
   }

@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:neostore/bloc/CartBloc/CartBloc.dart';
 import 'package:neostore/bloc/CartBloc/cartBloc_events.dart';
 import 'package:neostore/bloc/CartBloc/cartBloc_states.dart';
+import 'package:neostore/pallet.dart';
 import 'package:neostore/screens/address_List.dart';
 import 'package:sizer/sizer.dart';
 
@@ -15,8 +16,6 @@ class MyCartScreen extends StatefulWidget {
 }
 
 class _MyCartScreenState extends State<MyCartScreen> {
-  List<int> menuItems = [1, 2, 3, 4, 5, 6, 7, 8];
-  // int dropdownvalue = 1;
   var totalValue;
   var dropdownValue;
 
@@ -186,11 +185,15 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                               'assets/images/delete.png'))),
                                 ),
                                 onTap: () {
-                                  BlocProvider.of<CartBlocList>(context).add(
-                                      DeleteCartItem(
-                                          accessToken: widget.accessToken,
-                                          product_id: states.addToCartListModel
-                                              .data[index].productId));
+                                  setState(() {
+                                    BlocProvider.of<CartBlocList>(context).add(
+                                        DeleteCartItem(
+                                            accessToken: widget.accessToken,
+                                            product_id: states
+                                                .addToCartListModel
+                                                .data[index]
+                                                .productId));
+                                  });
                                 },
                               ),
                             ],
@@ -242,7 +245,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 22.0.sp,
-                                fontFamily: 'GothamMedium'),
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),

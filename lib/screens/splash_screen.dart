@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:neostore/main.dart';
 import 'package:neostore/pallet.dart';
 import 'package:neostore/screens/home_page.dart';
 import 'package:neostore/screens/login_page.dart';
@@ -27,11 +25,12 @@ class _SplashScreenState extends State<SplashScreen>
     });
     Timer(
         Duration(seconds: 2),
-        () => Navigator.push(
+        () => Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    status == true ? HomePage() : LoginPage())));
+                    status == true ? HomePage() : LoginPage()),
+            (route) => false));
   }
 
   @override

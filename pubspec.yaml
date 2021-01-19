@@ -32,6 +32,7 @@ dependencies:
   gson: ^0.1.4
   http: ^0.12.2
   dio: ^3.0.10
+  flutter_exif_rotation: ^0.3.2
   shared_preferences: ^0.5.12+4
   image_picker: ^0.6.7+21
   intl: ^0.16.1
