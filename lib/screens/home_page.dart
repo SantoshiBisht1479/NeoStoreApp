@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //crossAxisAlignment: CrossAxisAlignment.start,
+         
             children: [
               Container(
                   height: 120,
@@ -386,11 +386,11 @@ class _HomePageState extends State<HomePage> {
           elevation: 8,
           color: Colors.white,
           child: Container(
-            padding: EdgeInsets.only(left: 1, top: 30, right: 1),
+            padding: EdgeInsets.only(left: 1, top: 40, right: 1),
             child: Column(
               children: [
                 Container(
-                  height: 5.0.h,
+                  height: 7.0.h,
                   color: Theme.of(context).primaryColor,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -416,7 +416,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 ImageSlider(),
-                //SizedBox(height: 2.0.h),
+                
                 Expanded(child: productGrid(context))
               ],
             ),

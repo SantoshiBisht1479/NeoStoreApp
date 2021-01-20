@@ -117,7 +117,7 @@ class _ProductListState extends State<ProductList> {
                                         child: Container(
                                           alignment: Alignment.centerRight,
                                           child: RatingBar(
-                                            //onRatingUpdate: (value) => null,
+                                            onRatingUpdate: (value) => null,
                                             itemSize: 16,
                                             initialRating:
                                                 data[index].rating.toDouble(),

@@ -152,7 +152,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         padding: EdgeInsets.only(top: 4.0.h),
         child: Container(
           alignment: Alignment.center,
-          //padding: EdgeInsets.only(top: 2.0.h),
+         
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5), color: Colors.white),
           width: double.infinity,

@@ -23,7 +23,6 @@ class _AddressListPageState extends State<AddressListPage> {
   var currentAccessToken;
   String currentAddress;
   int radioValue = 8;
-  //AddressSelected radioValue = AddressSelected.selected;
   @override
   void initState() {
     super.initState();
@@ -38,10 +37,6 @@ class _AddressListPageState extends State<AddressListPage> {
       });
     });
 
-    // setState(() {
-    //   BlocProvider.of<AddressBloc>(context).add(AddNewAddressEvent());
-    // });
-    //BlocProvider.of<AddressBloc>(context).add(AddNewAddressEvent());
   }
 
   @override
@@ -98,13 +93,7 @@ class _AddressListPageState extends State<AddressListPage> {
               ),
             );
           }
-          // if (state is SuccessOrderPlaceState) {
-          //   return Center(
-          //     child: CircularProgressIndicator(
-          //       backgroundColor: Theme.of(context).primaryColor,
-          //     ),
-          //   );
-          //}
+         
           if (state is SuccessAddressBlocState) {
             if (state.addressModel.isEmpty) {
               return Center(
@@ -130,24 +119,21 @@ class _AddressListPageState extends State<AddressListPage> {
                           shrinkWrap: true,
                           itemCount: state.addressModel.length,
                           itemBuilder: (context, index) {
-                            //print(state.addressModel[index].id);
-                            //radioValue = state.addressModel[index].id;
+                           
                             return Card(
                               child: ListTile(
                                 leading: Radio(
                                   activeColor: Theme.of(context).primaryColor,
                                   groupValue: radioValue,
                                   value: state.addressModel[index].id,
-                                  //toggleable: true,
+                                
                                   onChanged: (int value) {
                                     setState(() {
-                                      // print(radioValue);
+                                     
                                       currentAddress =
                                           state.addressModel[index].address;
                                       radioValue = value;
-                                      // if (radioValue == value) {
-                                      //   print(true);
-                                      // }
+                                     
                                     });
                                   },
                                 ),
@@ -192,14 +178,13 @@ class _AddressListPageState extends State<AddressListPage> {
                                 )));
                           }
 
-                          //Navigator.pop(context);
+                        
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 4.0.w, vertical: 2.0.h),
                           child: Container(
                             alignment: Alignment.center,
-                            //padding: EdgeInsets.only(top: 2.0.h),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Theme.of(context).primaryColor),

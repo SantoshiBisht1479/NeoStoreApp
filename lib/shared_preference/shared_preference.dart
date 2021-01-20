@@ -4,8 +4,6 @@ class SharedPrefernceData {
   static String loggedIn_User_Detail = 'UserDetail';
   static String tokenKey = 'keyToken';
 
-  //static bool isUserLoggedIn;
-
   static SharedPreferences _preferences;
 
   static Future<SharedPreferences> get preferences async {
@@ -17,7 +15,6 @@ class SharedPrefernceData {
 
   static storeLoggedStatus() async {
     var preference = await preferences;
-    //isUserLoggedIn = true;
     preference.setBool(loggedIn_User_Detail, true);
   }
 
@@ -55,24 +52,4 @@ class SharedPrefernceData {
     pref.remove(tokenKey);
     pref.remove(loggedIn_User_Detail);
   }
-
-  // static storeLoggedUserDetail(
-  //     RegisterResponseModel registerResponseModel) async {
-  //   var preference = await preferences;
-
-  //   preference.setString(
-  //       loggedIn_User_Detail, json.encode(registerResponseModel.data.toMap()));
-  // }
-
-  // static Future<Data> getLoggedUserDetail() async {
-  //   var preference = await preferences;
-  //   // RegisterResponseModel registerModel = RegisterResponseModel.fromJson(
-  //   //     json.decode(preference.getString(loggedIn_User_Detail)));
-
-  //   Data dataModel =
-  //       Data.fromMap(json.decode(preference.getString(loggedIn_User_Detail)));
-  //   //var registerModel = preference.getString(loggedIn_User_Detail);
-  //   //print(dataModel);
-  //   return dataModel;
-  // }
 }

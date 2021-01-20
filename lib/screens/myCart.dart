@@ -4,7 +4,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:neostore/bloc/CartBloc/CartBloc.dart';
 import 'package:neostore/bloc/CartBloc/cartBloc_events.dart';
 import 'package:neostore/bloc/CartBloc/cartBloc_states.dart';
-import 'package:neostore/pallet.dart';
 import 'package:neostore/screens/address_List.dart';
 import 'package:sizer/sizer.dart';
 

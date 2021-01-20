@@ -55,10 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: snackBarErrortextStyle,
                   )));
             }
-            // if (state is LoginRegisterState) {
-            //   Navigator.push(context,
-            //       MaterialPageRoute(builder: (context) => RegistrationPage()));
-            // }
+          
           },
           child: Scaffold(
             key: _scaffoldKey,
@@ -189,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.only(top: 4.0.h),
         child: Container(
           alignment: Alignment.center,
-          //padding: EdgeInsets.only(top: 2.0.h),
+         
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5), color: Colors.white),
           width: double.infinity,

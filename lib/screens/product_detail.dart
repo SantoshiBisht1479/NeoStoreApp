@@ -100,7 +100,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   children: [
                                     Text(data.producer),
                                     RatingBar(
-                                      //onRatingUpdate: (value) => null,
+                                      onRatingUpdate: (value) => null,
                                       itemSize: 16,
                                       initialRating: data.rating.toDouble(),
                                       direction: Axis.horizontal,

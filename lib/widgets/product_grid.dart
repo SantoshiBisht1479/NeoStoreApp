@@ -37,7 +37,7 @@ Widget productGrid(BuildContext context) {
         shrinkWrap: true,
         itemCount: productGridImage.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, crossAxisSpacing: 2.0.h, mainAxisSpacing: 2.0.h),
+            crossAxisCount: 2, crossAxisSpacing: 2.5.h, mainAxisSpacing: 2.5.h),
         itemBuilder: (BuildContext context, index) {
           return InkWell(
               onTap: () {

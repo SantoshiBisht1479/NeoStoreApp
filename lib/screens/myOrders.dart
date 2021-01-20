@@ -58,7 +58,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
               child: Text(
                 state.emptyMessage,
                 style: TextStyle(
-                    //color: Theme.of(context).primaryColor,
+                    
                     fontSize: 20,
                     fontStyle: FontStyle.italic),
               ),
