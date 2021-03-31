@@ -56,7 +56,16 @@ Go to project root and execute the following command in console to get the requi
      - Order List
      - Order Detail
      
-     
+## Folder Structure
+
+Here is the core folder structure which flutter provides.
+```NeoStoreApp/
+   |- android
+   |- build
+   |- ios
+   |- lib
+   |- test
+```
 
 
 
