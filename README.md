@@ -4,7 +4,12 @@ NeoSTORE is an e-commerce mobile application developed in flutter. It provides u
 
 For this project we going to use NeoSTORE API to fetch details and render on UI.
 
-## Step 1: Install Packages
+## How to Use
+
+### Step 1:
+Download or clone this repo by using the link below:
+
+
 
 Add the below dependencies in your `pubspec.yaml` file and run `flutter pub get` to install the dependencies.
 
