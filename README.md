@@ -8,7 +8,7 @@ For this project we going to use NeoSTORE API to fetch details and render on UI.
 
 Add the below dependencies in your `pubspec.yaml` file and run `flutter pub get` to install the dependencies.
 
-`flutter_bloc: ^6.1.1
+```flutter_bloc: ^6.1.1
   sqflite: ^1.3.2+2
   path_provider: ^1.6.27
   flutter_slidable: ^0.5.7
@@ -20,7 +20,7 @@ Add the below dependencies in your `pubspec.yaml` file and run `flutter pub get`
   dio: ^3.0.10
   shared_preferences: ^0.5.12+4
   image_picker: ^0.6.7+21
-  intl: ^0.16.1`
+  intl: ^0.16.1```
 
 A few resources to get you started if this is your first Flutter project:
 
