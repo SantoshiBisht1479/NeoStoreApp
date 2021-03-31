@@ -13,7 +13,7 @@ Download or clone this repo by using the link below:
 
 ### Step 2:
 If you are developing the project without cloning then
-Add the below dependencies in your `pubspec.yaml` file and run `flutter pub get` to install the dependencies.
+add the below dependencies in your `pubspec.yaml` file and run `flutter pub get` to install the dependencies.
 
 ```
   flutter_bloc: ^6.1.1
@@ -32,6 +32,7 @@ Add the below dependencies in your `pubspec.yaml` file and run `flutter pub get`
   ```
 
 Go to project root and execute the following command in console to get the required dependencies:
+
 `flutter pub get`
 
 ## NeoSTORE Features:
@@ -84,12 +85,14 @@ Here is the project structure of the application
    |- pallet.dart
 ```
 Lets dive into each folder
+
 `api/` file consists of api calling 
 ```
    api/
    |- network_services.dart
 ```
 `bloc` For state management of application bloc pattern is used.
+
 Each bloc consists of corresponding event, state and bloc files.
 ```
    bloc/
