@@ -14,7 +14,8 @@ Download or clone this repo by using the link below:
 If you are developing the project without cloning then
 Add the below dependencies in your `pubspec.yaml` file and run `flutter pub get` to install the dependencies.
 
-```flutter_bloc: ^6.1.1
+```
+  flutter_bloc: ^6.1.1
   sqflite: ^1.3.2+2
   path_provider: ^1.6.27
   flutter_slidable: ^0.5.7
@@ -68,6 +69,19 @@ Here is the core folder structure which flutter provides.
    |- test
 ```
 
+Here is the project structure of the application
+```
+   lib/
+   |- api/
+   |- bloc/
+   |- database_helper/
+   |- model/
+   |- screens
+   |- shared_preference
+   |- widgets/
+   |- main.dart
+   |- pallet.dart
+```
 
 
 A few resources to get you started if this is your first Flutter project:
