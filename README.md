@@ -40,21 +40,21 @@ Go to project root and execute the following command in console to get the requi
     - Update Account Details
     - Fetch Account Details
      
-- Product
-     1.Get Product List
-     2.Get Product Details
-     3.Set Product Ratings
+2. Product
+     - Get Product List
+     - Get Product Details
+     - Set Product Ratings
      
-- Cart
-     1.Add to cart
-     2.Edit Cart
-     3.Delete Cart
-     4.List Cart Items
+3. Cart
+     - Add to cart
+     - Edit Cart
+     - Delete Cart
+     - List Cart Items
      
-- Order
-     1.Order
-     2.Order List
-     3.Order Detail
+4. Order
+     - Order
+     - Order List
+     - Order Detail
      
      
 
