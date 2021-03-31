@@ -34,11 +34,11 @@ Go to project root and execute the following command in console to get the requi
 
 ## NeoSTORE Features:
 - User
-     1.Login
-     2.Forgot Password
-     3.Change Password
-     4.Update Account Details
-     5.Fetch Account Details
+    1. Login
+    2. Forgot Password
+    3. Change Password
+    4. Update Account Details
+    5. Fetch Account Details
      
 - Product
      1.Get Product List
