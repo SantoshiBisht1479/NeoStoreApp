@@ -33,25 +33,25 @@ Go to project root and execute the following command in console to get the requi
 `flutter pub get`
 
 ## NeoSTORE Features:
-⋅⋅* User
+- User
      1.Login
      2.Forgot Password
      3.Change Password
      4.Update Account Details
      5.Fetch Account Details
      
-..* Product
+- Product
      1.Get Product List
      2.Get Product Details
      3.Set Product Ratings
      
-..* Cart
+- Cart
      1.Add to cart
      2.Edit Cart
      3.Delete Cart
      4.List Cart Items
      
-..* Order
+- Order
      1.Order
      2.Order List
      3.Order Detail
