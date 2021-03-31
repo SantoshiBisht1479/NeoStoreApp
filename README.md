@@ -20,7 +20,8 @@ Add the below dependencies in your `pubspec.yaml` file and run `flutter pub get`
   dio: ^3.0.10
   shared_preferences: ^0.5.12+4
   image_picker: ^0.6.7+21
-  intl: ^0.16.1```
+  intl: ^0.16.1
+  ```
 
 A few resources to get you started if this is your first Flutter project:
 
