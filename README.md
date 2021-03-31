@@ -59,7 +59,8 @@ Go to project root and execute the following command in console to get the requi
 ## Folder Structure
 
 Here is the core folder structure which flutter provides.
-```NeoStoreApp/
+``` 
+   NeoStoreApp/
    |- android
    |- build
    |- ios
