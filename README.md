@@ -8,6 +8,7 @@ For this project we going to use NeoSTORE API to fetch details and render on UI.
 
 ### Step 1:
 Download or clone this repo by using the link below:
+
 `https://github.com/SantoshiBisht1479/NeoStoreApp.git`
 
 ### Step 2:
