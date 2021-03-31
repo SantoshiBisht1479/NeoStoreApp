@@ -1,6 +1,8 @@
-# neostore
+# NeoSTORE
 
-A new Flutter project.
+NeoSTORE is an e-commerce mobile application developed in flutter. It provides user with catalog of different products available for purchase in store. User can add product to their cart and then place order. 
+
+For this project we going to use NeoSTORE API to fetch details and render on UI.
 
 ## Getting Started
 
