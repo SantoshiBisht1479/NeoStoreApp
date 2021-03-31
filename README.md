@@ -82,7 +82,32 @@ Here is the project structure of the application
    |- main.dart
    |- pallet.dart
 ```
-
+Lets dive into each folder
+`api/` file consists of api calling 
+```
+   api/
+   |- network_services.dart
+```
+`bloc` For state management of application bloc pattern is used.
+Each bloc consists of corresponding event, state and bloc files.
+```
+   bloc/
+   |- address_bloc/
+      |- addressBloc_events.dart
+      |- addressBloc_states.dart
+      |- addressBloc.dart
+   |- cartBloc/
+   |- editProfileBloc
+   |- forgotPasswordBloc
+   |- HomeBloc
+   |- loginBloc
+   |- myAccountBloc
+   |- myOrderBloc
+   |- productDetailsBloc
+   |- productListBloc
+   |- registerBloc
+   |- resetPasswordBloc
+```
 
 A few resources to get you started if this is your first Flutter project:
 
