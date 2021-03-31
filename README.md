@@ -112,6 +112,36 @@ Each bloc consists of corresponding event, state and bloc files.
    |- registerBloc
    |- resetPasswordBloc
 ```
+`DatabaseHelper/` is used to save the users address.
+```
+   DatabaseHelper/
+   |- database_helper.dart
+```
+`model/` folder consists of all models of application.
+```
+   model/
+   |- addressModel.dart
+   |- addToCart_ListModel.dart
+   |- addToCart_Success_model.dart
+   |- chnage_PassReq_model.dart
+   |- emptyCartModel.dart
+   |- forgot_pass_request_model.dart
+   |- forgot_pass_response_model.dart
+   |- get_user_detail_model.dart
+   |- login_error_model.dart
+   |- login_request_model.dart
+   |- login_response_model.dart
+   |- myOrder_model.dart
+   |- myOrderDetail_model.dart
+   |- product_category_list_model.dart
+   |- product_detail_model.dart
+   |- rating_success_model.dart
+   |- register_error_model.dart
+   |- signup_request_model.dart
+   |- signup_response_model.dart
+   |- update_req_detail_model.dart
+   |- update_response_detail_model.dart
+```
 
 A few resources to get you started if this is your first Flutter project:
 
